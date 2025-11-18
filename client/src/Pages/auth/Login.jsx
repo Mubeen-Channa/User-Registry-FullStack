@@ -91,7 +91,7 @@ const Login = () => {
       {/* Branding */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 font-bold tracking-wide text-base mt-4
                       md:top-6 md:left-6 md:translate-x-0 md:text-lg md:text-white md:mt-0">
-        MubeenChanna.
+        PranjalMandhan.
       </div>
 
       {/* Login Card */}
@@ -115,7 +115,7 @@ const Login = () => {
               <label className="text-white text-xs font-medium">Email</label>
               <input
                 type="text"
-                placeholder="mubeenchanna.dev@gmail.com"
+                placeholder="PranjalMandhan@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-lg text-white text-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
@@ -252,7 +252,7 @@ const Login = () => {
         {/* Footer */}
         <div className="text-center mt-8">
           <p className="text-white/60 text-xs">
-            Developed by <span className="font-semibold text-white/80">Mubeen</span> <span className="font-semibold text-purple-400">Channa</span>
+            Developed by <span className="font-semibold text-white/80">Pranjal</span> <span className="font-semibold text-purple-400">Mandhan</span>
           </p>
         </div>
       </div>
