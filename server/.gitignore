@@ -1,0 +1,11 @@
+.env
+.env.local
+.env.production
+
+node_modules
+dist/
+
+*.log
+
+seedRoles.js
+seedAdmin.js
