@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
 const Role = require("../models/Role.js");
 
@@ -51,4 +52,52 @@ const registerUser = async (req, res) => {
 };
 
 
-module.exports = { registerUser };
+// Login 
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find user by email (case-insensitive)
+    const user = await User.findOne({ email: email.toLowerCase() }).populate("role_id"); 
+    if (!user) {
+      return res.status(400).json({ message: "User doesn't exist!" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Generate JWT token with email
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+        cms: user.cms,
+        department: user.department,
+        role: user.role_id?.role_name || "user",
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        cms: user.cms,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        department: user.department,
+        role: user.role_id?.role_name,
+      },
+    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ message: "Login failed. Please try again.", error: err.message });
+  }
+};
+
+module.exports = { registerUser, loginUser };
