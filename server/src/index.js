@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 
+const authRoutes = require("./routes/authRoutes");
+
 dotenv.config();
 
 // DB Connection
@@ -35,9 +37,17 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ 
     status: "success",
-    message: "UserRegistry Backend is running"
+    message: "UserRegistry Backend is running",
+    timestamp: new Date().toISOString()
   });
 });
+
+app.get("/health", (req, res) => {
+  res.json({ status: "healthy" });
+});
+
+// Routes
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 8080;
 
