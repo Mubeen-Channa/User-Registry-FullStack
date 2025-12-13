@@ -30,4 +30,44 @@ const getAllUsers = async (req, res) => {
 };
 
 
-module.exports = { getAllUsers };
+// upload profile image to Cloudinary
+const updateProfileImage = async (req, res) => {
+  try {
+    const { userId, imageData } = req.body;
+
+    if (!imageData) {
+      return res.status(400).json({ message: "No image data provided" });
+    }
+
+    // Upload to Cloudinary
+    const uploadResult = await cloudinary.uploader.upload(imageData, {
+      folder: "user-profiles",
+      transformation: [
+        { width: 400, height: 400, crop: "fill" }, // Auto resize
+        { quality: "auto" }, 
+        { fetch_format: "auto" } 
+      ]
+    });
+
+    // Update user with Cloudinary URL
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { profileImage: uploadResult.secure_url }, // Store URL in MongoDB
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ 
+      message: "Profile image updated successfully",
+      profileImage: user.profileImage
+    });
+  } catch (err) {
+    console.error("Error updating profile image:", err);
+    res.status(500).json({ message: "Failed to update profile image" });
+  }
+};
+
+module.exports = { getAllUsers, updateProfileImage };
