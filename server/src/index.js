@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const dashboardRoute = require("./routes/dashboardRoutes");
+const userRoutes = require("./routes/userRoute.js");
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.get("/health", (req, res) => {
 // Routes
 app.use("/api/auth",            authRoutes);
 app.use("/api/admin/dashboard", dashboardRoute);
+app.use("/api/users",           userRoutes);
 
 
 const PORT = process.env.PORT || 8080;
