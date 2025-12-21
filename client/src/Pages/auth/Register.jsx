@@ -1,3 +1,4 @@
+import { useState } from "react"; 
 import { useNavigate } from "react-router-dom";
 
 const InputField = ({ label, name, type = "text", placeholder, required = false, value, onChange, disabled }) => (
@@ -46,7 +47,30 @@ const PasswordField = ({ label, name, show, setShow, value, onChange, disabled, 
 );
 
 export default function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [form, setForm] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    department: "",
+    role_name: "Male",
+    interest: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", form);
+  };
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-[#0a0118] overflow-hidden pt-20 pb-5">
@@ -85,7 +109,131 @@ export default function Register() {
             <p className="text-gray-400 text-sm">Join us and start your journey</p>
           </div>
 
-          {/* Form will be added here */}
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-3">
+            {/* Name Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+              <InputField 
+                label="First Name" 
+                name="first_name" 
+                placeholder="Enter first name" 
+                required 
+                value={form.first_name}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+              <InputField 
+                label="Last Name" 
+                name="last_name" 
+                placeholder="Enter last name" 
+                required 
+                value={form.last_name}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+            </div>
+
+            {/* Email */}
+            <InputField 
+              label="Email" 
+              name="email" 
+              type="email" 
+              placeholder="mubeenchanna.dev@gmail.com" 
+              required 
+              value={form.email}
+              onChange={handleChange}
+              disabled={isLoading}
+            />
+
+            {/* Password Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <PasswordField 
+                label="Password" 
+                name="password" 
+                show={showPassword} 
+                setShow={setShowPassword}
+                value={form.password}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+              <PasswordField 
+                label="Confirm Password" 
+                name="confirmPassword" 
+                show={showConfirm} 
+                setShow={setShowConfirm}
+                value={form.confirmPassword}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+            </div>
+
+            {/* Department, Gender, Interest */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-white">Department</label>
+                <select
+                  name="department"
+                  value={form.department}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="w-full px-4 py-3.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                >
+                  <option value="" className="bg-[#1a0b2e]">Select</option>
+                  <option className="bg-[#1a0b2e]">Computer Science</option>
+                  <option className="bg-[#1a0b2e]">Mathematics</option>
+                  <option className="bg-[#1a0b2e]">Business Admin</option>
+                  <option className="bg-[#1a0b2e]">Other</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-white">Gender</label>
+                <select
+                  name="role_name"
+                  value={form.role_name}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="w-full px-4 py-3.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                >
+                  <option className="bg-[#1a0b2e]" value="Male">Male</option>
+                  <option className="bg-[#1a0b2e]" value="Female">Female</option>
+                </select>
+              </div>
+
+              <InputField 
+                label="Interests" 
+                name="interest" 
+                placeholder="e.g., Web, AI" 
+                value={form.interest}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-3.5 rounded-xl font-semibold text-white transition-all duration-300 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-purple-500/50"
+            >
+              Create Account
+            </button>
+          </form>
+
+          {/* Login Link */}
+          <div className="text-center pt-2 mb-[-20px]">
+            <p className="text-gray-400 text-sm">
+              Already have an account?{" "}
+              <a 
+                href="/auth/login" 
+                className="text-purple-400 hover:text-purple-300 font-semibold underline transition-colors"
+              >
+                Login here
+              </a>
+            </p>
+          </div>
         </div>
 
         {/* Footer */}
