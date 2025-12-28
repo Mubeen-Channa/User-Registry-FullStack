@@ -6,6 +6,10 @@ const Wall = () => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterDepartment, setFilterDepartment] = useState("All");
+  const [filterGender, setFilterGender] = useState("All");
+  const [stats, setStats] = useState({ total: 0, male: 0, female: 0 });
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -13,55 +17,78 @@ const Wall = () => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (!storedUser) return navigate("/auth/login");
-
     setUser(JSON.parse(storedUser));
-    fetchAllUsers();
+    fetchUsers();
   }, [navigate]);
 
-  const fetchAllUsers = async () => {
+  const fetchUsers = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/api/users/all`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-
       if (res.ok) {
         const data = await res.json();
         setUsers(data.users || []);
         setFilteredUsers(data.users || []);
+        calculateStats(data.users || []);
       }
-    } catch (err) {
-      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin border-4 border-purple-600 border-t-transparent rounded-full w-12 h-12" />
-      </div>
-    );
-  }
+  const calculateStats = (list) => {
+    setStats({
+      total: list.length,
+      male: list.filter((u) => u.role === "Male").length,
+      female: list.filter((u) => u.role === "Female").length,
+    });
+  };
+
+  useEffect(() => {
+    let filtered = users;
+
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (u) =>
+          u.first_name?.toLowerCase().includes(q) ||
+          u.last_name?.toLowerCase().includes(q) ||
+          u.email?.toLowerCase().includes(q)
+      );
+    }
+
+    if (filterDepartment !== "All") {
+      filtered = filtered.filter((u) => u.department === filterDepartment);
+    }
+
+    if (filterGender !== "All") {
+      filtered = filtered.filter((u) => u.role === filterGender);
+    }
+
+    setFilteredUsers(filtered);
+  }, [searchQuery, filterDepartment, filterGender, users]);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen p-6">
-      <h2 className="text-2xl font-bold mb-6">
-        Welcome back, {user?.first_name}
-      </h2>
+    <div className="p-6">
+      <input
+        placeholder="Search users"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border p-2 mb-4"
+      />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredUsers.map((u) => (
-          <div key={u.id} className="border p-4 rounded-xl">
-            <p className="font-semibold">
-              {u.first_name} {u.last_name}
-            </p>
-            <p className="text-sm">{u.email}</p>
-          </div>
-        ))}
+      <div className="mb-4">
+        Total: {stats.total} | Male: {stats.male} | Female: {stats.female}
       </div>
+
+      {filteredUsers.map((u) => (
+        <div key={u.id || u._id}>
+          {u.first_name} {u.last_name}
+        </div>
+      ))}
     </div>
   );
 };
