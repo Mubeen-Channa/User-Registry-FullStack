@@ -202,7 +202,15 @@ const Wall = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <p className={darkMode ? 'text-white' : 'text-gray-900'}>Content will be added here</p>
+        {/* Welcome */}
+        <Card darkMode={darkMode} className="p-6 mb-8 bg-gradient-to-br from-purple-600/20 to-pink-600/20">
+          <h2 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            Welcome back, {user?.first_name}! 👋
+          </h2>
+          <p className={darkMode ? 'text-gray-400' : 'text-gray-600'}>
+            {user?.email} • {user?.department} • {user?.role}
+          </p>
+        </Card>
       </main>
     </div>
   );
@@ -220,6 +228,12 @@ const Avatar = ({ user, size = "w-12 h-12", uploading = false }) => (
       <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
     ) : `${user?.first_name?.charAt(0) || ''}${user?.last_name?.charAt(0) || ''}`}
   </div>
+);
+
+const Card = ({ darkMode, className = "", children }) => (
+  <div className={`rounded-2xl border ${
+    darkMode ? 'bg-[#1a0b2e]/60 border-purple-500/20' : 'bg-white border-gray-200'
+  } ${className}`}>{children}</div>
 );
 
 export default Wall;
