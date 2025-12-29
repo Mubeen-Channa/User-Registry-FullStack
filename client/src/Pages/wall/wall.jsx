@@ -211,6 +211,14 @@ const Wall = () => {
             {user?.email} • {user?.department} • {user?.role}
           </p>
         </Card>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <StatCard title="Total Users" value={stats.total} icon="group" color="purple" darkMode={darkMode} />
+          <StatCard title="Male" value={stats.male} icon="male" color="blue" darkMode={darkMode} />
+          <StatCard title="Female" value={stats.female} icon="female" color="pink" darkMode={darkMode} />
+          <StatCard title="Departments" value={Object.keys(stats.departments).length} icon="business" color="green" darkMode={darkMode} />
+        </div>
       </main>
     </div>
   );
@@ -235,5 +243,23 @@ const Card = ({ darkMode, className = "", children }) => (
     darkMode ? 'bg-[#1a0b2e]/60 border-purple-500/20' : 'bg-white border-gray-200'
   } ${className}`}>{children}</div>
 );
+
+const StatCard = ({ title, value, icon, color, darkMode }) => {
+  const colors = {
+    purple: darkMode ? 'from-purple-600/20 to-purple-800/20 border-purple-500/30' : 'from-purple-100 to-purple-200 border-purple-300',
+    blue: darkMode ? 'from-blue-600/20 to-blue-800/20 border-blue-500/30' : 'from-blue-100 to-blue-200 border-blue-300',
+    pink: darkMode ? 'from-pink-600/20 to-pink-800/20 border-pink-500/30' : 'from-pink-100 to-pink-200 border-pink-300',
+    green: darkMode ? 'from-green-600/20 to-green-800/20 border-green-500/30' : 'from-green-100 to-green-200 border-green-300'
+  };
+  return (
+    <div className={`rounded-xl p-4 border bg-gradient-to-br ${colors[color]}`}>
+      <div className="flex justify-between items-center mb-2">
+        <span className={`material-symbols-outlined text-3xl ${darkMode ? 'text-white' : 'text-gray-900'}`}>{icon}</span>
+        <span className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{value}</span>
+      </div>
+      <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{title}</p>
+    </div>
+  );
+};
 
 export default Wall;
