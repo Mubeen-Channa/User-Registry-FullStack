@@ -219,6 +219,21 @@ const Wall = () => {
           <StatCard title="Female" value={stats.female} icon="female" color="pink" darkMode={darkMode} />
           <StatCard title="Departments" value={Object.keys(stats.departments).length} icon="business" color="green" darkMode={darkMode} />
         </div>
+
+        {/* Filters */}
+        <Card darkMode={darkMode} className="p-6 mb-6">
+          <h3 className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            Search & Filter Users
+          </h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <Input icon="search" placeholder="Search..." value={searchQuery} onChange={setSearchQuery} darkMode={darkMode} />
+            <Select value={filterDepartment} onChange={setFilterDepartment} options={departments} darkMode={darkMode} />
+            <Select value={filterGender} onChange={setFilterGender} options={["All", "Male", "Female"]} darkMode={darkMode} />
+          </div>
+          <p className={`mt-4 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            Showing {filteredUsers.length} of {users.length} users
+          </p>
+        </Card>
       </main>
     </div>
   );
@@ -261,5 +276,32 @@ const StatCard = ({ title, value, icon, color, darkMode }) => {
     </div>
   );
 };
+
+const Input = ({ icon, placeholder, value, onChange, darkMode }) => (
+  <div className="relative">
+    <span className={`material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 ${
+      darkMode ? 'text-gray-400' : 'text-gray-500'
+    }`}>{icon}</span>
+    <input type="text" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}
+      className={`w-full pl-11 pr-4 py-2.5 rounded-lg border focus:ring-2 focus:ring-purple-500/50 outline-none ${
+        darkMode ? 'bg-[#0a0118]/60 border-purple-500/30 text-white' 
+        : 'bg-gray-50 border-gray-300 text-gray-900'
+      }`} />
+  </div>
+);
+
+const Select = ({ value, onChange, options, darkMode }) => (
+  <select value={value} onChange={(e) => onChange(e.target.value)}
+    className={`px-4 py-2.5 rounded-lg border focus:ring-2 focus:ring-purple-500/50 outline-none ${
+      darkMode ? 'bg-[#0a0118]/60 border-purple-500/30 text-white' 
+      : 'bg-gray-50 border-gray-300 text-gray-900'
+    }`}>
+    {options.map(opt => (
+      <option key={opt} value={opt} className={darkMode ? 'bg-[#1a0b2e]' : ''}>
+        {opt === "All" ? `All ${options[1] ? "Options" : ""}` : opt}
+      </option>
+    ))}
+  </select>
+);
 
 export default Wall;
