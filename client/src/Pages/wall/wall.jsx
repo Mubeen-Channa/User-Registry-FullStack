@@ -234,6 +234,18 @@ const Wall = () => {
             Showing {filteredUsers.length} of {users.length} users
           </p>
         </Card>
+
+        {/* Users Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredUsers.map(u => <UserCard key={u.id || u._id} user={u} darkMode={darkMode} />)}
+        </div>
+
+        {!filteredUsers.length && (
+          <div className={`text-center py-12 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <span className="material-symbols-outlined text-5xl mb-2">search_off</span>
+            <p>No users found</p>
+          </div>
+        )}
       </main>
     </div>
   );
@@ -302,6 +314,32 @@ const Select = ({ value, onChange, options, darkMode }) => (
       </option>
     ))}
   </select>
+);
+
+const UserCard = ({ user, darkMode }) => (
+  <Card darkMode={darkMode} className="p-5 hover:scale-105 transition-all">
+    <div className="flex gap-3 mb-3">
+      <Avatar user={user} />
+      <div className="flex-1 min-w-0">
+        <h4 className={`font-semibold truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          {user.first_name} {user.last_name}
+        </h4>
+        <p className={`text-sm truncate ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{user.email}</p>
+      </div>
+    </div>
+    <div className="space-y-2">
+      <InfoRow icon="business" text={user.department || "N/A"} darkMode={darkMode} />
+      <InfoRow icon={user.role === "Male" ? "male" : "female"} text={user.role} darkMode={darkMode} />
+      {user.interest && <InfoRow icon="interests" text={user.interest} darkMode={darkMode} />}
+    </div>
+  </Card>
+);
+
+const InfoRow = ({ icon, text, darkMode }) => (
+  <div className="flex items-center gap-2">
+    <span className={`material-symbols-outlined text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{icon}</span>
+    <span className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{text}</span>
+  </div>
 );
 
 export default Wall;
