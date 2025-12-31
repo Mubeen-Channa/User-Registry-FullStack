@@ -186,12 +186,12 @@ const Wall = () => {
               <span className="material-symbols-outlined">{darkMode ? "light_mode" : "dark_mode"}</span>
             </button>
             
-            <div className="flex items-center gap-2 hover:opacity-80">
+            <button onClick={() => setShowProfileModal(true)} className="flex items-center gap-2 hover:opacity-80">
               <Avatar user={user} size="w-10 h-10" uploading={uploading} />
               <span className={`hidden md:block font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {user?.first_name}
               </span>
-            </div>
+            </button>
             
             <button onClick={handleLogout} className={`px-4 py-2 rounded-lg font-medium ${
               darkMode ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' 
@@ -247,6 +247,11 @@ const Wall = () => {
           </div>
         )}
       </main>
+
+      {showProfileModal && (
+        <ProfileModal user={user} darkMode={darkMode} onClose={() => setShowProfileModal(false)} 
+          onUpload={handleImageUpload} uploading={uploading} />
+      )}
     </div>
   );
 };
@@ -339,6 +344,58 @@ const InfoRow = ({ icon, text, darkMode }) => (
   <div className="flex items-center gap-2">
     <span className={`material-symbols-outlined text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{icon}</span>
     <span className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{text}</span>
+  </div>
+);
+
+const ProfileModal = ({ user, darkMode, onClose, onUpload, uploading }) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <Card darkMode={darkMode} className="w-full max-w-md p-6">
+      <div className="flex justify-between mb-6">
+        <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>My Profile</h3>
+        <button onClick={onClose} className={`p-2 rounded-lg ${darkMode ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`} disabled={uploading}>
+          <span className={`material-symbols-outlined ${darkMode ? 'text-white' : 'text-gray-900'}`}>close</span>
+        </button>
+      </div>
+
+      <div className="flex flex-col items-center mb-6">
+        <div className="relative mb-4">
+          <Avatar user={user} size="w-24 h-24" uploading={uploading} />
+          <label className={`absolute bottom-0 right-0 p-2 bg-purple-600 rounded-full cursor-pointer hover:bg-purple-700 ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+            <span className="material-symbols-outlined text-white text-sm">
+              {uploading ? "hourglass_empty" : "edit"}
+            </span>
+            <input type="file" accept="image/*" onChange={onUpload} className="hidden" disabled={uploading} />
+          </label>
+        </div>
+        <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          {user?.first_name} {user?.last_name}
+        </h4>
+        <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{user?.email}</p>
+        {uploading && <p className="text-xs text-purple-400 mt-2">Uploading image...</p>}
+      </div>
+
+      <div className="space-y-3">
+        <ProfileInfo label="Department" value={user?.department} icon="business" darkMode={darkMode} />
+        <ProfileInfo label="Gender" value={user?.role} icon={user?.role === "Male" ? "male" : "female"} darkMode={darkMode} />
+        <ProfileInfo label="Interests" value={user?.interest || "Not specified"} icon="interests" darkMode={darkMode} />
+      </div>
+
+      <button onClick={onClose} disabled={uploading} className={`w-full mt-6 py-3 rounded-xl font-semibold text-white ${
+        uploading ? 'bg-gray-500 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
+      }`}>
+        Close
+      </button>
+    </Card>
+  </div>
+);
+
+const ProfileInfo = ({ label, value, icon, darkMode }) => (
+  <div className={`flex gap-3 p-3 rounded-lg ${darkMode ? 'bg-[#0a0118]/40' : 'bg-gray-50'}`}>
+    <span className={`material-symbols-outlined ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>{icon}</span>
+    <div className="flex-1">
+      <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{label}</p>
+      <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{value}</p>
+    </div>
   </div>
 );
 
