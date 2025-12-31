@@ -170,6 +170,7 @@ const Wall = () => {
 
   console.log(user)
 
+
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-[#0a0118]' : 'bg-gray-50'}`}>
       {/* Header */}
@@ -256,6 +257,8 @@ const Wall = () => {
   );
 };
 
+
+
 // Components
 const Avatar = ({ user, size = "w-12 h-12", uploading = false }) => (
   <div className={`${size} rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-semibold overflow-hidden relative`}>
@@ -270,11 +273,13 @@ const Avatar = ({ user, size = "w-12 h-12", uploading = false }) => (
   </div>
 );
 
+
 const Card = ({ darkMode, className = "", children }) => (
   <div className={`rounded-2xl border ${
     darkMode ? 'bg-[#1a0b2e]/60 border-purple-500/20' : 'bg-white border-gray-200'
   } ${className}`}>{children}</div>
 );
+
 
 const StatCard = ({ title, value, icon, color, darkMode }) => {
   const colors = {
@@ -294,6 +299,7 @@ const StatCard = ({ title, value, icon, color, darkMode }) => {
   );
 };
 
+
 const Input = ({ icon, placeholder, value, onChange, darkMode }) => (
   <div className="relative">
     <span className={`material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 ${
@@ -306,6 +312,7 @@ const Input = ({ icon, placeholder, value, onChange, darkMode }) => (
       }`} />
   </div>
 );
+
 
 const Select = ({ value, onChange, options, darkMode }) => (
   <select value={value} onChange={(e) => onChange(e.target.value)}
@@ -320,6 +327,7 @@ const Select = ({ value, onChange, options, darkMode }) => (
     ))}
   </select>
 );
+
 
 const UserCard = ({ user, darkMode }) => (
   <Card darkMode={darkMode} className="p-5 hover:scale-105 transition-all">
@@ -340,12 +348,14 @@ const UserCard = ({ user, darkMode }) => (
   </Card>
 );
 
+
 const InfoRow = ({ icon, text, darkMode }) => (
   <div className="flex items-center gap-2">
     <span className={`material-symbols-outlined text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{icon}</span>
     <span className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{text}</span>
   </div>
 );
+
 
 const ProfileModal = ({ user, darkMode, onClose, onUpload, uploading }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
@@ -389,6 +399,7 @@ const ProfileModal = ({ user, darkMode, onClose, onUpload, uploading }) => (
   </div>
 );
 
+
 const ProfileInfo = ({ label, value, icon, darkMode }) => (
   <div className={`flex gap-3 p-3 rounded-lg ${darkMode ? 'bg-[#0a0118]/40' : 'bg-gray-50'}`}>
     <span className={`material-symbols-outlined ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>{icon}</span>
@@ -398,5 +409,6 @@ const ProfileInfo = ({ label, value, icon, darkMode }) => (
     </div>
   </div>
 );
+
 
 export default Wall;
