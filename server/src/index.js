@@ -17,7 +17,8 @@ const app = express();
 // CORS - allow frontend
 const allowedOrigins = [
   "http://localhost:5173",
-  "http://localhost:3000", 
+  "http://localhost:3000",
+  "https://user-registry-fullstack.vercel.app",
   process.env.FRONTEND_URL
 ];
 
@@ -56,6 +57,13 @@ app.use("/api/users",           userRoutes);
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Only start server if not in Vercel environment
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
