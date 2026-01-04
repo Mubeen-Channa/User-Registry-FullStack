@@ -161,7 +161,7 @@ const Wall = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#0a0118]">
-        <div className="animate-spin border-4 border-purple-600 border-t-transparent rounded-full w-12 h-12" />
+        <div className="animate-spin border-4 border-purple-600 border-t-transparent rounded-full w-10 h-10" />
       </div>
     );
   }
@@ -172,29 +172,29 @@ const Wall = () => {
 
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-[#0a0118]' : 'bg-gray-50'}`}>
+    <div className={`min-h-screen${darkMode ? 'bg-[#0a0118]' : 'bg-gray-50'}`}>
       {/* Header */}
-      <header className={`sticky top-0 z-50 backdrop-blur-xl border-b ${
+      <header className={`sticky top-0 px-5 z-50 backdrop-blur-xl border-b ${
         darkMode ? 'bg-[#1a0b2e]/80 border-purple-500/20' : 'bg-white/80 border-gray-200'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>MubeenChanna.</h1>
+        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+          <h1 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>MubeenChanna.</h1>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-lg ${
               darkMode ? 'bg-purple-600/20 text-purple-400' : 'bg-gray-200 text-gray-700'
             }`}>
-              <span className="material-symbols-outlined">{darkMode ? "light_mode" : "dark_mode"}</span>
+              <span className="material-symbols-outlined text-xl">{darkMode ? "light_mode" : "dark_mode"}</span>
             </button>
             
             <button onClick={() => setShowProfileModal(true)} className="flex items-center gap-2 hover:opacity-80">
-              <Avatar user={user} size="w-10 h-10" uploading={uploading} />
-              <span className={`hidden md:block font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <Avatar user={user} size="w-8 h-8" uploading={uploading} />
+              <span className={`hidden md:block font-medium text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {user?.first_name}
               </span>
             </button>
             
-            <button onClick={handleLogout} className={`px-4 py-2 rounded-lg font-medium ${
+            <button onClick={handleLogout} className={`px-3 py-1.5 text-sm rounded-lg font-medium ${
               darkMode ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' 
               : 'bg-red-100 text-red-600 hover:bg-red-200'
             }`}>Logout</button>
@@ -202,19 +202,19 @@ const Wall = () => {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-8 py-6">
         {/* Welcome */}
-        <Card darkMode={darkMode} className="p-6 mb-8 bg-gradient-to-br from-purple-600/20 to-pink-600/20">
-          <h2 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <Card darkMode={darkMode} className="p-4 mb-6 bg-gradient-to-br from-purple-600/20 to-pink-600/20">
+          <h2 className={`text-xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Welcome back, {user?.first_name}! 👋
           </h2>
-          <p className={darkMode ? 'text-gray-400' : 'text-gray-600'}>
+          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             {user?.email} • {user?.department} • {user?.role}
           </p>
         </Card>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
           <StatCard title="Total Users" value={stats.total} icon="group" color="purple" darkMode={darkMode} />
           <StatCard title="Male" value={stats.male} icon="male" color="blue" darkMode={darkMode} />
           <StatCard title="Female" value={stats.female} icon="female" color="pink" darkMode={darkMode} />
@@ -222,29 +222,29 @@ const Wall = () => {
         </div>
 
         {/* Filters */}
-        <Card darkMode={darkMode} className="p-6 mb-6">
-          <h3 className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <Card darkMode={darkMode} className="p-4 mb-5">
+          <h3 className={`text-base font-semibold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Search & Filter Users
           </h3>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-3">
             <Input icon="search" placeholder="Search..." value={searchQuery} onChange={setSearchQuery} darkMode={darkMode} />
             <Select value={filterDepartment} onChange={setFilterDepartment} options={departments} darkMode={darkMode} />
             <Select value={filterGender} onChange={setFilterGender} options={["All", "Male", "Female"]} darkMode={darkMode} />
           </div>
-          <p className={`mt-4 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`mt-3 text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             Showing {filteredUsers.length} of {users.length} users
           </p>
         </Card>
 
         {/* Users Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
           {filteredUsers.map(u => <UserCard key={u.id || u._id} user={u} darkMode={darkMode} />)}
         </div>
 
         {!filteredUsers.length && (
           <div className={`text-center py-12 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            <span className="material-symbols-outlined text-5xl mb-2">search_off</span>
-            <p>No users found</p>
+            <span className="material-symbols-outlined text-4xl mb-2">search_off</span>
+            <p className="text-sm">No users found</p>
           </div>
         )}
       </main>
@@ -260,11 +260,11 @@ const Wall = () => {
 
 
 // Components
-const Avatar = ({ user, size = "w-12 h-12", uploading = false }) => (
-  <div className={`${size} rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-semibold overflow-hidden relative`}>
+const Avatar = ({ user, size = "w-10 h-10", uploading = false }) => (
+  <div className={`${size} rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-sm font-semibold overflow-hidden relative`}>
     {uploading && (
       <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-        <div className="animate-spin border-2 border-white border-t-transparent rounded-full w-6 h-6" />
+        <div className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5" />
       </div>
     )}
     {user?.profileImage ? (
@@ -275,7 +275,7 @@ const Avatar = ({ user, size = "w-12 h-12", uploading = false }) => (
 
 
 const Card = ({ darkMode, className = "", children }) => (
-  <div className={`rounded-2xl border ${
+  <div className={`rounded-xl border ${
     darkMode ? 'bg-[#1a0b2e]/60 border-purple-500/20' : 'bg-white border-gray-200'
   } ${className}`}>{children}</div>
 );
@@ -289,12 +289,12 @@ const StatCard = ({ title, value, icon, color, darkMode }) => {
     green: darkMode ? 'from-green-600/20 to-green-800/20 border-green-500/30' : 'from-green-100 to-green-200 border-green-300'
   };
   return (
-    <div className={`rounded-xl p-4 border bg-gradient-to-br ${colors[color]}`}>
-      <div className="flex justify-between items-center mb-2">
-        <span className={`material-symbols-outlined text-3xl ${darkMode ? 'text-white' : 'text-gray-900'}`}>{icon}</span>
-        <span className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{value}</span>
+    <div className={`rounded-lg p-3 border bg-gradient-to-br ${colors[color]}`}>
+      <div className="flex justify-between items-center mb-1">
+        <span className={`material-symbols-outlined text-2xl ${darkMode ? 'text-white' : 'text-gray-900'}`}>{icon}</span>
+        <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{value}</span>
       </div>
-      <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{title}</p>
+      <p className={`text-xs ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{title}</p>
     </div>
   );
 };
@@ -302,11 +302,11 @@ const StatCard = ({ title, value, icon, color, darkMode }) => {
 
 const Input = ({ icon, placeholder, value, onChange, darkMode }) => (
   <div className="relative">
-    <span className={`material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 ${
+    <span className={`material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-lg ${
       darkMode ? 'text-gray-400' : 'text-gray-500'
     }`}>{icon}</span>
     <input type="text" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}
-      className={`w-full pl-11 pr-4 py-2.5 rounded-lg border focus:ring-2 focus:ring-purple-500/50 outline-none ${
+      className={`w-full pl-10 pr-3 py-2 text-sm rounded-lg border focus:ring-2 focus:ring-purple-500/50 outline-none ${
         darkMode ? 'bg-[#0a0118]/60 border-purple-500/30 text-white' 
         : 'bg-gray-50 border-gray-300 text-gray-900'
       }`} />
@@ -316,7 +316,7 @@ const Input = ({ icon, placeholder, value, onChange, darkMode }) => (
 
 const Select = ({ value, onChange, options, darkMode }) => (
   <select value={value} onChange={(e) => onChange(e.target.value)}
-    className={`px-4 py-2.5 rounded-lg border focus:ring-2 focus:ring-purple-500/50 outline-none ${
+    className={`px-3 py-2 text-sm rounded-lg border focus:ring-2 focus:ring-purple-500/50 outline-none ${
       darkMode ? 'bg-[#0a0118]/60 border-purple-500/30 text-white' 
       : 'bg-gray-50 border-gray-300 text-gray-900'
     }`}>
@@ -330,17 +330,17 @@ const Select = ({ value, onChange, options, darkMode }) => (
 
 
 const UserCard = ({ user, darkMode }) => (
-  <Card darkMode={darkMode} className="p-5 hover:scale-105 transition-all">
-    <div className="flex gap-3 mb-3">
+  <Card darkMode={darkMode} className="p-4 hover:scale-105 transition-all">
+    <div className="flex gap-2.5 mb-2.5">
       <Avatar user={user} />
       <div className="flex-1 min-w-0">
-        <h4 className={`font-semibold truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <h4 className={`font-semibold text-sm truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>
           {user.first_name} {user.last_name}
         </h4>
-        <p className={`text-sm truncate ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{user.email}</p>
+        <p className={`text-xs truncate ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{user.email}</p>
       </div>
     </div>
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       <InfoRow icon="business" text={user.department || "N/A"} darkMode={darkMode} />
       <InfoRow icon={user.role === "Male" ? "male" : "female"} text={user.role} darkMode={darkMode} />
       {user.interest && <InfoRow icon="interests" text={user.interest} darkMode={darkMode} />}
@@ -351,46 +351,46 @@ const UserCard = ({ user, darkMode }) => (
 
 const InfoRow = ({ icon, text, darkMode }) => (
   <div className="flex items-center gap-2">
-    <span className={`material-symbols-outlined text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{icon}</span>
-    <span className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{text}</span>
+    <span className={`material-symbols-outlined text-base ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{icon}</span>
+    <span className={`text-xs ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{text}</span>
   </div>
 );
 
 
 const ProfileModal = ({ user, darkMode, onClose, onUpload, uploading }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-    <Card darkMode={darkMode} className="w-full max-w-md p-6">
-      <div className="flex justify-between mb-6">
-        <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>My Profile</h3>
+    <Card darkMode={darkMode} className="w-full max-w-md p-5">
+      <div className="flex justify-between mb-5">
+        <h3 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>My Profile</h3>
         <button onClick={onClose} className={`p-2 rounded-lg ${darkMode ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`} disabled={uploading}>
-          <span className={`material-symbols-outlined ${darkMode ? 'text-white' : 'text-gray-900'}`}>close</span>
+          <span className={`material-symbols-outlined text-xl ${darkMode ? 'text-white' : 'text-gray-900'}`}>close</span>
         </button>
       </div>
 
-      <div className="flex flex-col items-center mb-6">
-        <div className="relative mb-4">
-          <Avatar user={user} size="w-24 h-24" uploading={uploading} />
-          <label className={`absolute bottom-0 right-0 p-2 bg-purple-600 rounded-full cursor-pointer hover:bg-purple-700 ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+      <div className="flex flex-col items-center mb-5">
+        <div className="relative mb-3">
+          <Avatar user={user} size="w-20 h-20" uploading={uploading} />
+          <label className={`absolute bottom-0 right-0 p-1.5 bg-purple-600 rounded-full cursor-pointer hover:bg-purple-700 ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
             <span className="material-symbols-outlined text-white text-sm">
               {uploading ? "hourglass_empty" : "edit"}
             </span>
             <input type="file" accept="image/*" onChange={onUpload} className="hidden" disabled={uploading} />
           </label>
         </div>
-        <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <h4 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
           {user?.first_name} {user?.last_name}
         </h4>
-        <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{user?.email}</p>
+        <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{user?.email}</p>
         {uploading && <p className="text-xs text-purple-400 mt-2">Uploading image...</p>}
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         <ProfileInfo label="Department" value={user?.department} icon="business" darkMode={darkMode} />
         <ProfileInfo label="Gender" value={user?.role} icon={user?.role === "Male" ? "male" : "female"} darkMode={darkMode} />
         <ProfileInfo label="Interests" value={user?.interest || "Not specified"} icon="interests" darkMode={darkMode} />
       </div>
 
-      <button onClick={onClose} disabled={uploading} className={`w-full mt-6 py-3 rounded-xl font-semibold text-white ${
+      <button onClick={onClose} disabled={uploading} className={`w-full mt-5 py-2.5 text-sm rounded-lg font-semibold text-white ${
         uploading ? 'bg-gray-500 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
       }`}>
         Close
@@ -401,11 +401,11 @@ const ProfileModal = ({ user, darkMode, onClose, onUpload, uploading }) => (
 
 
 const ProfileInfo = ({ label, value, icon, darkMode }) => (
-  <div className={`flex gap-3 p-3 rounded-lg ${darkMode ? 'bg-[#0a0118]/40' : 'bg-gray-50'}`}>
-    <span className={`material-symbols-outlined ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>{icon}</span>
+  <div className={`flex gap-2.5 p-2.5 rounded-lg ${darkMode ? 'bg-[#0a0118]/40' : 'bg-gray-50'}`}>
+    <span className={`material-symbols-outlined text-lg ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>{icon}</span>
     <div className="flex-1">
       <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{label}</p>
-      <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{value}</p>
+      <p className={`font-medium text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>{value}</p>
     </div>
   </div>
 );
