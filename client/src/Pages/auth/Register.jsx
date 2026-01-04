@@ -1,13 +1,13 @@
 import { useState } from "react"; 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import API_BASE_URL from '../../config/api';
 
 
 const InputField = ({ label, name, type = "text", placeholder, required = false, value, onChange, disabled }) => (
-  <div className="space-y-2">
-    <label className="text-sm font-medium text-white">{label}</label>
+  <div className="space-y-1.5">
+    <label className="text-xs font-medium text-white">{label}</label>
     <input
       type={type}
       name={name}
@@ -16,14 +16,14 @@ const InputField = ({ label, name, type = "text", placeholder, required = false,
       placeholder={placeholder}
       required={required}
       disabled={disabled}
-      className="w-full px-4 py-3.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+      className="w-full px-3 py-2.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-lg text-white text-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
     />
   </div>
 );
 
 const PasswordField = ({ label, name, show, setShow, value, onChange, disabled, strengthInfo }) => (
-  <div className="space-y-2">
-    <label className="text-sm font-medium text-white">{label}</label>
+  <div className="space-y-1.5">
+    <label className="text-xs font-medium text-white">{label}</label>
     <div className="relative">
       <input
         type={show ? "text" : "password"}
@@ -33,7 +33,7 @@ const PasswordField = ({ label, name, show, setShow, value, onChange, disabled, 
         placeholder={label}
         required
         disabled={disabled}
-        className="w-full px-4 py-3.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all pr-12"
+        className="w-full px-3 py-2.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-lg text-white text-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all pr-10"
       />
       <button
         type="button"
@@ -41,7 +41,7 @@ const PasswordField = ({ label, name, show, setShow, value, onChange, disabled, 
         disabled={disabled}
         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
       >
-        <span className="material-symbols-outlined text-xl">
+        <span className="material-symbols-outlined text-lg">
           {show ? "visibility_off" : "visibility"}
         </span>
       </button>
@@ -126,7 +126,7 @@ export default function Register() {
       resetForm();
       setTimeout(() => navigate("/auth/login"), 2000);
     } catch (err) {
-      console.log(err),
+      console.log(err);
       setMessage({
         text: err.response?.data?.message || "Registration failed. Please try again.",
         type: "error"
@@ -163,7 +163,7 @@ export default function Register() {
   };
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center bg-[#0a0118] overflow-hidden pt-20 pb-5">
+    <div className="relative min-h-screen w-full flex items-center justify-center bg-[#0a0118] overflow-hidden p-4">
       {/* Starry Background */}
       <div className="absolute inset-0">
         {[...Array(80)].map((_, i) => (
@@ -181,28 +181,28 @@ export default function Register() {
       </div>
 
       {/* Gradient Orbs */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-purple-600/30 rounded-full blur-[120px] animate-pulse"></div>
-      <div className="absolute bottom-20 left-20 w-80 h-80 bg-pink-600/20 rounded-full blur-[100px] animate-pulse" style={{animationDelay: '1s'}}></div>
+      <div className="absolute top-16 right-16 w-72 h-72 bg-purple-600/30 rounded-full blur-[100px] animate-pulse"></div>
+      <div className="absolute bottom-16 left-16 w-64 h-64 bg-pink-600/20 rounded-full blur-[80px] animate-pulse" style={{animationDelay: '1s'}}></div>
 
       {/* Branding */}
-      <div className="absolute top-8 left-8 text-white text-xl font-bold tracking-wide">
+      <div className="absolute top-6 left-6 text-white text-lg font-bold tracking-wide">
         MubeenChanna.
       </div>
 
       {/* Register Card */}
-      <div className="relative w-full max-w-3xl z-10">
-        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-xl rounded-3xl border border-purple-500/20 shadow-2xl p-8 space-y-2">
+      <div className="relative w-full max-w-2xl z-10 mt-10">
+        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-xl rounded-2xl border border-purple-500/20 shadow-2xl px-7 pt-4 pb-3 space-y-3">
           
           {/* Header */}
           <div className="space-y-0">
-            <h1 className="text-white text-3xl font-bold">Create Your Account</h1>
-            <p className="text-gray-400 text-sm">Join us and start your journey</p>
+            <h1 className="text-white text-2xl font-bold">Create Your Account</h1>
+            <p className="text-gray-400 text-xs">Join us and start your journey</p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-3">
+          <form onSubmit={handleSubmit} className="space-y-2">
             {/* Name Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <InputField 
                 label="First Name" 
                 name="first_name" 
@@ -236,7 +236,7 @@ export default function Register() {
             />
 
             {/* Password Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
               <PasswordField 
                 label="Password" 
                 name="password" 
@@ -260,16 +260,16 @@ export default function Register() {
             </div>
 
             {/* Department, Gender, Interest */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-white">Department</label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-white">Department</label>
                 <select
                   name="department"
                   value={form.department}
                   onChange={handleChange}
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                  className="w-full px-3 py-2.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                 >
                   <option value="" className="bg-[#1a0b2e]">Select</option>
                   <option className="bg-[#1a0b2e]">Computer Science</option>
@@ -279,15 +279,15 @@ export default function Register() {
                 </select>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-white">Gender</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-white">Gender</label>
                 <select
                   name="role_name"
                   value={form.role_name}
                   onChange={handleChange}
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                  className="w-full px-3 py-2.5 bg-[#1a0b2e]/60 border border-purple-500/30 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                 >
                   <option className="bg-[#1a0b2e]" value="Male">Male</option>
                   <option className="bg-[#1a0b2e]" value="Female">Female</option>
@@ -306,20 +306,20 @@ export default function Register() {
 
             {/* Success/Error Message */}
             {message.text && (
-              <div className={`p-4 rounded-xl border flex items-center justify-between ${
+              <div className={`p-3 rounded-lg border flex items-center justify-between ${
                 message.type === "success" 
                   ? "bg-green-500/10 border-green-500/30 text-green-400" 
                   : "bg-red-500/10 border-red-500/30 text-red-400"
               }`}>
                 <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-xl">
+                  <span className="material-symbols-outlined text-lg">
                     {message.type === "success" ? "check_circle" : "error"}
                   </span>
-                  <span className="text-sm font-medium">{message.text}</span>
+                  <span className="text-xs font-medium">{message.text}</span>
                 </div>
                 <button 
                   onClick={() => setMessage({ text: "", type: "" })}
-                  className="text-xl hover:opacity-70 transition-opacity"
+                  className="text-lg hover:opacity-70 transition-opacity"
                   disabled={isLoading}
                 >
                   ×
@@ -331,7 +331,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full py-3.5 rounded-xl font-semibold text-white transition-all duration-300 ${
+              className={`w-full py-2.5 rounded-lg font-semibold text-white text-sm transition-all duration-300 ${
                 isLoading 
                   ? "bg-purple-600/50 cursor-not-allowed" 
                   : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-purple-500/50"
@@ -339,7 +339,7 @@ export default function Register() {
             >
               {isLoading ? (
                 <span className="flex justify-center items-center gap-2">
-                  <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5"></span>
+                  <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>
                   Creating account...
                 </span>
               ) : (
@@ -348,19 +348,19 @@ export default function Register() {
             </button>
 
             {/* Divider */}
-            <div className="relative flex items-center py-2">
+            <div className="relative flex items-center py-1">
               <div className="flex-grow border-t border-purple-500/20"></div>
-              <span className="flex-shrink mx-4 text-gray-500 text-sm">Or sign up with</span>
+              <span className="flex-shrink mx-3 text-gray-500 text-xs">Or sign up with</span>
               <div className="flex-grow border-t border-purple-500/20"></div>
             </div>
 
             {/* Google Signup Button */}
             <button
               type="button"
-              className="w-full py-3.5 bg-white/10 hover:bg-white/15 border border-purple-500/20 rounded-xl text-white font-medium transition-all duration-300 flex items-center justify-center gap-3 group"
+              className="w-full py-2.5 bg-white/10 hover:bg-white/15 border border-purple-500/20 rounded-lg text-white text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 group"
               disabled={isLoading}
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -371,22 +371,22 @@ export default function Register() {
           </form>
 
           {/* Login Link */}
-          <div className="text-center pt-2 mb-[-20px]">
-            <p className="text-gray-400 text-sm">
+          <div className="text-center pt-1">
+            <p className="text-gray-400 text-xs">
               Already have an account?{" "}
-              <a 
-                href="/auth/login" 
+              <Link 
+                to="/auth/login" 
                 className={`text-purple-400 hover:text-purple-300 font-semibold underline transition-colors ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
               >
                 Login here
-              </a>
+              </Link>
             </p>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-10">
-          <p className="text-white/60 text-sm">
+        <div className="text-center mt-4">
+          <p className="text-white/60 text-xs">
             Developed by <span className="font-semibold text-white/80">Mubeen</span> <span className="font-semibold text-purple-400">Channa</span>
           </p>
         </div>
