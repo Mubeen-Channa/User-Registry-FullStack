@@ -185,14 +185,16 @@ export default function Register() {
       <div className="absolute bottom-16 left-16 w-64 h-64 bg-pink-600/20 rounded-full blur-[80px] animate-pulse" style={{animationDelay: '1s'}}></div>
 
       {/* Branding */}
-      <div className="absolute top-6 left-6 text-white text-lg font-bold tracking-wide">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 font-bold tracking-wide text-base mt-4
+                      md:top-6 md:left-6 md:translate-x-0 md:text-lg md:text-white md:mt-0">
         MubeenChanna.
       </div>
 
       {/* Register Card */}
-      <div className="relative w-full max-w-2xl z-10 mt-10">
-        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-xl rounded-2xl border border-purple-500/20 shadow-2xl px-7 pt-4 pb-3 space-y-3">
-          
+      <div className="relative w-full max-w-2xl z-10 md:mt-10 mt-20">
+        <div className="md:bg-gradient-to-br md:from-[#1a0b2e]/80 md:to-[#2d1b4e]/60 md:backdrop-blur-xl md:border md:border-purple-500/20 md:shadow-2xl md:pb-3 md:pt-4 md:px-8 md:space-y-3
+                        bg-gradient-to-br from-[#1a0b2e]/80 rounded-2xl shadow-2xl p-6 space-y-6
+        ">
           {/* Header */}
           <div className="space-y-0">
             <h1 className="text-white text-2xl font-bold">Create Your Account</h1>

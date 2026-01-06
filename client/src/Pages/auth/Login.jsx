@@ -87,21 +87,26 @@ const Login = () => {
       <div className="absolute top-16 right-16 w-72 h-72 bg-purple-600/30 rounded-full blur-[100px] animate-pulse"></div>
       <div className="absolute bottom-16 left-16 w-64 h-64 bg-pink-600/20 rounded-full blur-[80px] animate-pulse" style={{animationDelay: '1s'}}></div>
       <div className="absolute bottom-24 right-32 w-48 h-48 bg-purple-800/40 rounded-full blur-[60px]"></div>
-
+      
       {/* Branding */}
-      <div className="absolute top-6 left-6 text-white text-lg font-bold tracking-wide">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 font-bold tracking-wide text-base mt-4
+                      md:top-6 md:left-6 md:translate-x-0 md:text-lg md:text-white md:mt-0">
         MubeenChanna.
       </div>
 
       {/* Login Card */}
-      <div className="relative w-full max-w-sm mx-4 z-10 mt-5">
-        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-xl rounded-2xl border border-purple-500/20 shadow-2xl p-6 space-y-6">
+      <div className="relative w-full max-w-sm mx-4 z-10 md:mt-10 mt-20">
+        <div className="md:bg-gradient-to-br md:from-[#1a0b2e]/80 md:to-[#2d1b4e]/60 md:backdrop-blur-xl md:border md:border-purple-500/20 md:shadow-2xl 
+                        bg-gradient-to-br from-[#1a0b2e]/80 rounded-2xl shadow-2xl p-6 space-y-6
+        ">
           
           {/* Header */}
-          <div className="space-y-1">
-            <h1 className="text-white text-2xl font-bold">Nice to have you back!</h1>
-            <p className="text-gray-400 text-xs">Manage users, track performance, and stay in control</p>
-          </div>
+            <div className="space-y-1 text-center md:text-left">
+              <h1 className="text-white text-xl md:text-2xl font-bold">Nice to have you back!</h1>
+              <p className="text-gray-400 text-[11px] md:text-xs">
+                Manage users, track performance, and stay in control
+              </p>
+            </div>
 
           {/* Form */}
           <form onSubmit={handleLogin} className="space-y-4">
