@@ -172,29 +172,31 @@ const Wall = () => {
 
 
   return (
-    <div className={`min-h-screen${darkMode ? 'bg-[#0a0118]' : 'bg-gray-50'}`}>
+    <div className={`min-h-screen ${darkMode ? 'bg-[#0a0118]' : 'bg-gray-50'}`}>
       {/* Header */}
       <header className={`sticky top-0 px-5 z-50 backdrop-blur-xl border-b ${
         darkMode ? 'bg-[#1a0b2e]/80 border-purple-500/20' : 'bg-white/80 border-gray-200'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>MubeenChanna.</h1>
+        <div className="md:max-w-7xl md:mx-auto md:px-4 md:py-3
+                        max-w-7xl mx-auto px-4 py-3 flex justify-between items-center
+        ">
+          <h1 className={`md:text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>MubeenChanna.</h1>
           
-          <div className="flex items-center gap-3">
-            <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-lg ${
+          <div className="flex items-center gap-2 md:gap-3">
+            <button onClick={() => setDarkMode(!darkMode)} className={`md:p-2 pt-1 px-1 rounded-lg ${
               darkMode ? 'bg-purple-600/20 text-purple-400' : 'bg-gray-200 text-gray-700'
             }`}>
               <span className="material-symbols-outlined text-xl">{darkMode ? "light_mode" : "dark_mode"}</span>
             </button>
             
             <button onClick={() => setShowProfileModal(true)} className="flex items-center gap-2 hover:opacity-80">
-              <Avatar user={user} size="w-8 h-8" uploading={uploading} />
-              <span className={`hidden md:block font-medium text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <Avatar user={user} size="md:w-8 md:h-8  w-6 h-6" uploading={uploading} />
+              <span className={`hidden md:block font-medium md:text-sm text-[xs] ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {user?.first_name}
               </span>
             </button>
             
-            <button onClick={handleLogout} className={`px-3 py-1.5 text-sm rounded-lg font-medium ${
+            <button onClick={handleLogout} className={`md:px-3 md:py-1.5 md:text-sm  px-2 py-1 text-xs rounded-lg font-medium ${
               darkMode ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' 
               : 'bg-red-100 text-red-600 hover:bg-red-200'
             }`}>Logout</button>
@@ -205,10 +207,10 @@ const Wall = () => {
       <main className="max-w-7xl mx-auto px-8 py-6">
         {/* Welcome */}
         <Card darkMode={darkMode} className="p-4 mb-6 bg-gradient-to-br from-purple-600/20 to-pink-600/20">
-          <h2 className={`text-xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h2 className={`md:text-xl text-[17px] font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Welcome back, {user?.first_name}! 👋
           </h2>
-          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`md:text-sm text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             {user?.email} • {user?.department} • {user?.role}
           </p>
         </Card>
