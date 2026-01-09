@@ -20,7 +20,7 @@ A modern, secure user authentication and management platform built with the MERN
 
 ## 🚀 Live Demo
 
-- **URL:** [https://user-registry-fullstack.vercel.app/](https://your-app.vercel.app)
+- **URL:** [https://user-registry-fullstack.vercel.app/](https://user-registry-fullstack.vercel.app/)
 
 <br>
 
