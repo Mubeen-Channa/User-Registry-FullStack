@@ -187,7 +187,7 @@ export default function Register() {
       {/* Branding */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 font-bold tracking-wide text-base mt-4
                       md:top-6 md:left-6 md:translate-x-0 md:text-lg md:text-white md:mt-0">
-        PranjalMandhan.
+        MubeenChanna.
       </div>
 
       {/* Register Card */}
@@ -230,7 +230,7 @@ export default function Register() {
               label="Email" 
               name="email" 
               type="email" 
-              placeholder="PranjalMandhan@gmail.com" 
+              placeholder="mubeenchanna.dev@gmail.com" 
               required 
               value={form.email}
               onChange={handleChange}
@@ -389,7 +389,7 @@ export default function Register() {
         {/* Footer */}
         <div className="text-center mt-4">
           <p className="text-white/60 text-xs">
-            Developed by <span className="font-semibold text-white/80">Pranjal</span> <span className="font-semibold text-purple-400">Mandhan</span>
+            Developed by <span className="font-semibold text-white/80">Mubeen</span> <span className="font-semibold text-purple-400">Channa</span>
           </p>
         </div>
       </div>
