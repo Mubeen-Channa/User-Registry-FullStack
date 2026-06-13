@@ -180,7 +180,7 @@ const Wall = () => {
         <div className="md:max-w-7xl md:mx-auto md:px-4 md:py-3
                         max-w-7xl mx-auto px-4 py-3 flex justify-between items-center
         ">
-          <h1 className={`md:text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>PranjalMandhan.</h1>
+          <h1 className={`md:text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>MubeenChanna.</h1>
           
           <div className="flex items-center gap-2 md:gap-3">
             <button onClick={() => setDarkMode(!darkMode)} className={`md:p-2 pt-1 px-1 rounded-lg ${
